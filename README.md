@@ -1,10 +1,10 @@
 # EXPERIMENT-04-INTERRUPT-GENERATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR
 
-###  DATE: 
+###  DATE: 26.03.2026
 
-###  NAME: 
-###  ROLL NO :
-###  DEPARTMENT: 
+###  NAME: ASHWIN KUMAR E
+###  ROLL NO : 212224230026
+###  DEPARTMENT: BTECH(AIDS)
 ### Aim:
 To Interface a IR Sensor to digital port of iot development board  and generate an interrupt and visualize on the serial monitor 
 
@@ -61,11 +61,14 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
 
  1. click on STM 32 CUBE IDE, the following screen will appear
     
- ![image](https://user-images.githubusercontent.com/36288975/226189166-ac10578c-c059-40e7-8b80-9f84f64bf088.png)
+ <img width="1139" height="613" alt="image" src="https://github.com/user-attachments/assets/d86aa756-ede1-42d0-b6a5-ddefd130eb94" />
+
 
  2. click on FILE, click on new stm 32 project
   
- ![image](https://user-images.githubusercontent.com/36288975/226189215-2d13ebfb-507f-44fc-b772-02232e97c0e3.png)
+<img width="1141" height="611" alt="image" src="https://github.com/user-attachments/assets/9df5cf8a-3cb3-4df5-9c72-7c3a5cf1d663" />
+
+
  
 ![image](https://user-images.githubusercontent.com/36288975/226189230-bf2d90dd-9695-4aaf-b2a6-6d66454e81fc.png)
 
@@ -95,11 +98,13 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
 
 8. edit the program and as per required
    
-![image](https://user-images.githubusercontent.com/36288975/226189461-a573e62f-a109-4631-a250-a20925758fe0.png)
+<img width="1142" height="609" alt="image" src="https://github.com/user-attachments/assets/e6224f65-ec3a-4a3f-9a60-6f74171ea2d4" />
+
 
 9. use project and build all
     
-![image](https://user-images.githubusercontent.com/36288975/226189554-3f7101ac-3f41-48fc-abc7-480bd6218dec.png)
+<img width="1144" height="612" alt="image" src="https://github.com/user-attachments/assets/34edb267-c34e-4285-a2e0-6883128796ab" />
+
 
 10. once the project is build
     
@@ -114,7 +119,8 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
 
 13. Connect the STM board through the COM port, then upload the corresponding project ELF file/Hex file or Bin file in Erasing & Programming Window,while ensuring the board is in flash mode, and click on 'Start Program'.
 
-    ![image](https://github.com/user-attachments/assets/9383531d-8204-4697-9321-55afb6abee2e)
+    <img width="1103" height="595" alt="image" src="https://github.com/user-attachments/assets/ed5d4397-b9fb-44c8-b72b-5de0cde8a1ba" />
+
 
 14.  After the file download is complete, switch your board to run mode and press the reset button to see the output
 
@@ -125,15 +131,58 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
  
 
 ## STM 32 CUBE PROGRAM :
+```c
+#include "main.h"
+#include "stdio.h"
+#if defined(__GNUC__)
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif
+UART_HandleTypeDef huart2;
 
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_USART2_UART_Init(void);
+
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
+  while (1)
+  {
+  }
+ 
+}
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==1)
+	{
+		printf("INTERRUPT GENERATED.\n");
+	}
+}
+PUTCHAR_PROTOTYPE
+{
+	HAL_UART_Transmit(&huart2,(uint8_t*)&ch,1,0xFFFF);
+	return ch;
+}
+
+```
 
 
 ## Output screen shots of serial port utility   :
  
+<img width="1919" height="1055" alt="Screenshot 2026-02-23 141505" src="https://github.com/user-attachments/assets/38830cb5-d6b5-41ef-8095-9f71cf5f14ba" />
  
- ## Circuit board :
+## Circuit board :
+
+### Object Not Detected:
+
+![WhatsApp Image 2026-02-23 at 3 04 53 PM](https://github.com/user-attachments/assets/dd942aa4-9bad-4f2e-afc8-fae4b9e95e6d)
+
+### Object Detected:
  
- 
- 
+![WhatsApp Image 2026-02-23 at 3 04 54 PM](https://github.com/user-attachments/assets/2b41a2fe-ae3c-490b-b2db-70ae26f85cd8)
+
 ## Result :
 Interfacing a  IR SENSOR and interrupt is generated using external interrupt mode , visualized on serial port 
